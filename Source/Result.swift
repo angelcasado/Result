@@ -21,17 +21,54 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
-
+ 
  */
 
 import Foundation
 
-public protocol ResultType {
-    typealias T
+public enum Result<T>: ResultType {
+    case Success(T)
+    case Failure(ErrorType)
 
-    init(value: T)
-    init(error: ErrorType)
+    public init(value: T) {
+        self = .Success(value)
+    }
 
-    var value: T? { get }
-    var error: ErrorType? { get }
+    public init(error: ErrorType) {
+        self = .Failure(error)
+    }
+
+    public var value: T? {
+        get {
+            switch self {
+            case let .Success(value): return value
+            case .Failure: return nil
+            }
+        }
+    }
+
+    public var error: ErrorType? {
+        get {
+            switch self {
+            case .Success: return nil
+            case let .Failure(error): return error
+            }
+        }
+    }
+}
+
+public extension Result {
+    public func map<U>(@noescape f: T -> U) -> Result<U> {
+        switch self {
+        case let .Success(value): return .Success(f(value))
+        case let .Failure(error): return .Failure(error)
+        }
+    }
+
+    public func flatMap<U>(@noescape f: T -> Result<U>) -> Result<U> {
+        switch self {
+        case let .Success(value): return f(value)
+        case let .Failure(error): return .Failure(error)
+        }
+    }
 }
