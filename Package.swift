@@ -24,8 +24,8 @@
 
  */
 
- import PackageDescription
+import PackageDescription
 
- let package = Package(
-     name: "Result"
- )
+let package = Package(
+    name: "Result"
+)
