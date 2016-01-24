@@ -24,12 +24,8 @@
 
  */
 
-public protocol ResultType {
-    typealias T
+ import PackageDescription
 
-    init(value: T)
-    init(error: ErrorType)
-
-    var value: T? { get }
-    var error: ErrorType? { get }
-}
+ let package = Package(
+     name: "Result"
+ )
