@@ -1,0 +1,2 @@
+# Result
+Simple Result implementation.
