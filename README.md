@@ -1,5 +1,5 @@
 # Result
-⚗ It's either what you wanted or a horrific `ErrorType`.
+Result implementation playground and swift package.
 
 ## Requirements
 * Swift 2.2
